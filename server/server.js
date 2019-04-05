@@ -1,5 +1,5 @@
 // to specifiy the path (before we used express.static())
-
+// server side
 const path  = require('path');
 const http = require('http');
 const express = require('express');
@@ -28,6 +28,28 @@ app.use(express.static(publicPath));
 
 io.on('connection',(socket)=>{
 	console.log('new user connected');
+
+	socket.emit('newMessage',{
+		from : 'Johnsnow',
+		text : 'see you then',
+		createdAt : 123123
+	})
+
+	// socket.emit('newEmail',{
+	// 	from : 'mike@example.com',
+	// 	test: 'hello'
+	// });
+    
+    // for send email type (example)
+// socket.on('createEmail',(newEmail) =>{
+//    console.log('At server side',newEmail)
+// });
+
+
+ //message part implemtation
+   socket.on('createMessage',(message) =>{
+   	 console.log('createMessage',message);
+   });
 
 	socket.on('disconnect',()=>{
 		console.log('User was disconnect');
