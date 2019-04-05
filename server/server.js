@@ -15,7 +15,14 @@ const port = process.env.PORT ||3000;
 
 app.use(express.static(publicPath));
 
+app.get("/",function(req,res){
+	res.render("index");
+});
+
+app.get("/why",function(req,res){
+	res.render("LOL");
+});
+
 app.listen(port,()=>{
 	console.log("Server started");
-})
-
+});
