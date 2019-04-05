@@ -44,17 +44,42 @@ io.on('connection',(socket)=>{
 // socket.on('createEmail',(newEmail) =>{
 //    console.log('At server side',newEmail)
 // });
+   
+
+   // socket.emit from Admin text welcome to chat app
+   socket.emit('newMessage',{
+   	  from : 'Admin',
+   	  text : 'welcome to chat app',
+   	  createdAt : new Date().getTime()
+   });
+
+   // socket.broadcast.emit from Admin text New User joined
+   socket.broadcast.emit('newMessage',{
+   	  from : 'Admin',
+   	  text : 'New User joined',
+   	  createdAt : new Date().getTime()
+   });
 
 
  //message part implemtation
    socket.on('createMessage',(message) =>{
    	 console.log('createMessage',message);
  	
+ 	 //messagt to all including me(sender)
  	 io.emit('newMessage',{
  	 	from : message.from,
  	 	text : message.text,
  	 	createdAt : new Date().getTime()
- 	 })
+ 	 });
+ 	 
+ 	  // print wtell other user that this user has joined
+ 	  //send messgae to everbody but not me
+ 	  // socket.broadcast.emit('newMessage',{
+ 	  // 	from : message.from,
+ 	  // 	text : message.text,
+ 	  // 	createdAt : new Date().getTime()
+ 	  // })
+
 
    });
 
