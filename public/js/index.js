@@ -13,10 +13,10 @@ var socket = io();
  	// 	text :'yolo'
  	// })
  	
- 	socket.emit('createMessage',{
- 		from : 'Andrew',
- 		text : 'worked'
- 	});
+ 	// socket.emit('createMessage',{
+ 	// 	from : 'Andrew',
+ 	// 	text : 'worked'
+ 	// });
  });
 
  // ()=>   --> crashes on opening with mobiles
