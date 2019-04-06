@@ -80,7 +80,7 @@ io.on('connection',(socket)=>{
 
  	 	 io.emit('newMessage',generateMessage(message.from,message.text));
  	      
- 	      callback('This is from the server side');
+ 	      callback('');
  	  
  	  // print wtell other user that this user has joined
  	  //send messgae to everbody but not me
