@@ -1,6 +1,8 @@
 // client side -- see on chrome (Ctrl+shift+i)
 
-var socket = io();
+
+$(document).ready(function(){
+  var socket = io();
 
 
  socket.on('connect',function(){
@@ -34,18 +36,32 @@ var socket = io();
  
 
  socket.on('newMessage',function(message){
- 	console.log('newMessage',message);
+ 	// gonna use mustache
+ 	// 
+ 	// console.log('newMessage',message);
    
    var formattedTime = moment(message.createdAt).format('h:mm a')
 
 
 
- 	var li = jQuery('<li></li>');
- 	console.log("ok" , typeof message.from);
- 	console.log(message.from);
- 	li.text(message.from +" "+formattedTime+":"+message.text);
+ 	// var li = jQuery('<li></li>');
+ 	// console.log("ok" , typeof message.from);
+ 	// console.log(message.from);
+ 	// li.text(message.from +" "+formattedTime+":"+message.text);
 
- 	jQuery('#messages').append(li);
+ 	// jQuery('#messages').append(li);
+ 	
+
+ 	 var template = jQuery('#messages-template').html();
+
+ 	// console.log(typeof template);
+ 	var html = Mustache.render(template,{
+ 		text : message.text,
+ 		from : message.from,
+ 		createdAt : formattedTime
+ 	});
+
+ 	jQuery('#messages').append(html);
 
 
  });
@@ -63,14 +79,31 @@ var socket = io();
  
  socket.on('newLocationMessage',function(message){
    
- 	var li = jQuery('<li></li>');
- 	var a = jQuery('<a targrt= "_blank"> MycurrentLocation</a>');
-       var formattedTime = moment(message.createdAt).format('h:mm a')
+    var formattedTime = moment(message.createdAt).format('h:mm a')
+ // 	var li = jQuery('<li></li>');
+ // 	var a = jQuery('<a targrt= "_blank"> MycurrentLocation</a>');
+ //      
 
- 	li.text(message.from+" "+formattedTime+":");
- 	a.attr('href',message.url);
- 	li.append(a);
-	jQuery('#messages').append(li);
+ // 	li.text(message.from+" "+formattedTime+":");
+ // 	a.attr('href',message.url);
+ // 	li.append(a);
+	// jQuery('#messages').append(li);
+	// 
+	// 
+	
+
+	// use of mustache template
+ 	 var template = jQuery('#location-messages-template').html();
+
+ 	 console.log(message);
+ 	var html = Mustache.render(template,{
+ 		from : message.from,
+ 		url : message.url,
+ 		createdAt : formattedTime
+ 	});
+
+ 	jQuery('#messages').append(html);
+
 
 
  })
@@ -114,3 +147,6 @@ var socket = io();
 
 
  });
+
+});
+
