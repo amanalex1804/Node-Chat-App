@@ -66,7 +66,9 @@ io.on('connection',(socket)=>{
    // });
 
  //message part implemtation
-   socket.on('createMessage',(message) =>{
+ //
+  // for acknowledging
+   socket.on('createMessage',(message,callback) =>{
    	 console.log('createMessage',message);
  	
  	 //message to all including me(sender)
@@ -77,8 +79,9 @@ io.on('connection',(socket)=>{
  	 // });
 
  	 	 io.emit('newMessage',generateMessage(message.from,message.text));
- 	
- 	 
+ 	      
+ 	      callback('This is from the server side');
+ 	  
  	  // print wtell other user that this user has joined
  	  //send messgae to everbody but not me
  	  // socket.broadcast.emit('newMessage',{
