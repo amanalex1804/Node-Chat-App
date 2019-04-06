@@ -35,10 +35,15 @@ var socket = io();
 
  socket.on('newMessage',function(message){
  	console.log('newMessage',message);
+   
+   var formattedTime = moment(message.createdAt).format('h:mm a')
+
+
+
  	var li = jQuery('<li></li>');
  	console.log("ok" , typeof message.from);
  	console.log(message.from);
- 	li.text(message.from +":"+message.text);
+ 	li.text(message.from +" "+formattedTime+":"+message.text);
 
  	jQuery('#messages').append(li);
 
@@ -57,11 +62,12 @@ var socket = io();
  // for link of location
  
  socket.on('newLocationMessage',function(message){
-
+   
  	var li = jQuery('<li></li>');
  	var a = jQuery('<a targrt= "_blank"> MycurrentLocation</a>');
+       var formattedTime = moment(message.createdAt).format('h:mm a')
 
- 	li.text(message.from);
+ 	li.text(message.from+" "+formattedTime+":");
  	a.attr('href',message.url);
  	li.append(a);
 	jQuery('#messages').append(li);
