@@ -2,6 +2,33 @@
 
 
 $(document).ready(function(){
+    
+     // for autoscrolling
+     
+     function scrollToBottom(){
+
+     	// selector
+     	
+     	var messages = jQuery('#messages');
+     	var newMessage = messages.children('li:last-child');
+
+     	// height
+     	
+     	var clientHeight = messages.prop('clientHeight');
+     	var scrollTop = messages.prop('scrollTop');
+     	var scrollHeight = messages.prop('scrollHeight');
+     	var newMessageHeight = newMessage.innerHeight();
+     	var lastMessageHeight = newMessage.prev().innerHeight();
+
+     	if(clientHeight + scrollTop +newMessageHeight+ lastMessageHeight>= scrollHeight){
+     		messages.scrollTop(scrollHeight);
+     	}
+
+     }
+
+
+
+
   var socket = io();
 
 
@@ -62,6 +89,7 @@ $(document).ready(function(){
  	});
 
  	jQuery('#messages').append(html);
+ 	scrollToBottom();
 
 
  });
@@ -103,7 +131,7 @@ $(document).ready(function(){
  	});
 
  	jQuery('#messages').append(html);
-
+   	scrollToBottom();
 
 
  })
