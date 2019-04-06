@@ -59,7 +59,7 @@ io.on('connection',(socket)=>{
 
 
    // socket.broadcast.emit from Admin text New User joined
-   socket.broadcast.emit('newMessage',generateMessage('Admin','New User joined'));
+   //socket.broadcast.emit('newMessage',generateMessage('Admin','New User joined'));
      
    //  socket.broadcast.emit('newMessage',{
    // 	  from : 'Admin',
@@ -98,6 +98,12 @@ io.on('connection',(socket)=>{
   // for acknowledging
    socket.on('createMessage',(message,callback) =>{
    	 console.log('createMessage',message);
+
+   	 var user = users.getUser(socket.id);
+
+   	 if(user && isRealString(message.text)){
+   	 	io.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
+   	 }
  	
  	 //message to all including me(sender)
  	 // io.emit('newMessage',{
@@ -106,7 +112,7 @@ io.on('connection',(socket)=>{
  	 // 	createdAt : new Date().getTime()
  	 // });
 
- 	 	 io.emit('newMessage',generateMessage(message.from,message.text));
+ 	 	 //io.emit('newMessage',generateMessage(message.from,message.text));
  	      
  	      callback('');
  	  
@@ -128,7 +134,14 @@ io.on('connection',(socket)=>{
    
    // for sending the links
      socket.on('createLocationMessage',(coords) =>{
-  	 io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude , coords.longitude));
+     	// console.log('createMessage',message);
+
+   	 var user = users.getUser(socket.id);
+
+   	 if(user){
+   	 	io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,coords.latitude,coords.longitude));
+   	 }
+  	// io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude , coords.longitude));
    });
    
 

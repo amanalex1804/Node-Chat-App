@@ -78,7 +78,7 @@ $(document).ready(function(){
  	});
 
  	jQuery('#users').html(ol);
- 	
+
 
  });
 
@@ -167,7 +167,7 @@ $(document).ready(function(){
 
     var messageTextbox = jQuery('[name=message');
  	socket.emit('createMessage',{
- 		from : 'User',
+ 		
  		text : messageTextbox.val()
  	},function(){
  			messageTextbox.val('');
