@@ -35,6 +35,18 @@ $(document).ready(function(){
  socket.on('connect',function(){
  	console.log('connected to server');
 
+ 	// for join rooms
+ 	
+ 	var params = jQuery.deparam(window.location.search);
+ 	socket.emit('join',params,function(err){
+ 		if(err){
+ 				alert(err);
+ 				window.location.href='/';
+ 		}else{
+ 			console.log('No error');
+ 		}
+ 	});
+
     // to createmail
 
  	// socket.emit('createEmail',{
@@ -55,6 +67,19 @@ $(document).ready(function(){
  
  socket.on('disconnect',function(){
  	console.log('Disconnected from server');
+ });
+
+ socket.on('updateUserList',function(users){
+ 	console.log("NAHI PAHUCHE KA");
+ 	console.log('Users List ',users);
+ 	var ol = jQuery('<ol></ol>');
+ 	users.forEach(function(user){
+ 		ol.append(jQuery('<li></li>').text(user));
+ 	});
+
+ 	jQuery('#users').html(ol);
+ 	
+
  });
 
  // socket.on('newEmail',function(email){

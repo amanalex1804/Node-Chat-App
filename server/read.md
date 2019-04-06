@@ -15,3 +15,10 @@ git status
 * git commit -m 'Add projec page'
 * git push
 * git push heroku
+
+
+//
+
+io.emit -- to all in connection
+socket.broadcast.emit --- to all except 
+socket.emit ---- to a specific person
